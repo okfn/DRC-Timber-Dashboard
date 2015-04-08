@@ -1,0 +1,138 @@
+/*
+    This file will be automatically compiled from LESS.
+*/
+/*Variables*/
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.map_container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+}
+
+.map_container #map_canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+/* Demo styles */
+
+.map_container #map_canvas {
+    background: #ccc;
+}
+
+.heading {
+    margin: 40px auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+input {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.contacts a {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #000;
+    border-radius: 2px;
+    padding: 5px 10px;
+}
+
+.contacts a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #252525;
+    -webkit-transition: background-color 200ms linear;
+    -moz-transition: background-color 200ms linear;
+    -o-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.contacts {
+    margin-top: 30px;
+}
+
+.contacts li {
+    display: inline;
+    list-style: none;
+}
+
+.globalwitness-logo {
+    color: #e00613;
+}
+
+.globalwitness-logo:hover {
+    background: #e00613;
+    color: #fff;
+    padding: 2px 5px;
+    text-decoration: none;
+    border-radius: 2px;
+}
+
+.bottom-block {
+    margin-top: 50px;
+}
+
+tr th {
+    background: #dddddd;
+}
+
+.custom-buttons {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.custom-buttons div .custom-button {
+    border: 1px solid #272727;
+    background: #dddddd;
+    color: #2272727;
+    padding: 8px;
+    border-radius: 2px;
+    cursor: pointer
+}
+
+.custom-buttons div .custom-button:hover {
+    background: #f1f1f1
+}
+
+.scrollit {
+    overflow: scroll;
+    height: 500px;
+}
+
+.semibold {
+    font-weight: 400;
+}
+
+.shipper-data {
+    margin: 10px auto;
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+}
+
+.shipperTooltip {
+    font-weight: 500;
+}
+
+#errFilter {
+    display: none;
+    color: #e00613;
+    ;
+}
