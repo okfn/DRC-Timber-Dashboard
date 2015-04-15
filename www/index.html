@@ -3,8 +3,10 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Open Knowledge Timber Route Visualization</title>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900' rel='stylesheet' type='text/css'>
+    <title>DRC Timber Dashboard</title>
+    <link rel="shortcut icon" type="icon" href="favicon.ico" />
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300,600,400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -31,27 +33,48 @@
                 <h5>From</h5>
                 <div class="row">
                     <div class="form-group col-lg-6 col-sm-11">
-                        <label for="sel1">Quater:</label>
-                        <select class="form-control" id="filterFrom">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                            <label for="sel1">Quater:</label>
+                            <select class="form-control" id="filterfromQuarter">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                            <label for="sel1">Year:</label>
+                            <select class="form-control year-filter" id="filterFromYear">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option selected value="2014">2014</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <h5>To</h5>
                 <div class="row">
                     <div class="form-group col-lg-6 col-sm-11">
-                        <label for="sel1">Quater:</label>
-                        <select class="form-control" id="filterTo">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                            <label for="sel1">Quater:</label>
+                            <select class="form-control" id="filtertoQuarter">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                            <label for="sel1">Year:</label>
+                            <select class="form-control year-filter" id="filterToYear">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option selected value="2014">2014</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <p id="errFilter">From Quater must be less than To Quater value</p>
-                <button class="btn btn-danger" id="filter">Filter</button>
             </div>
             <div class="col-lg-6">
                 <div class="map_container">
@@ -78,52 +101,40 @@
 ">
             <div class="col-lg-4">
                 <h4>Top exporting companies</h4>
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Data1</th>
-                            <th>Data2</th>
+                            <th>Shipper</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>API DATA</td>
-                            <td>API DATA</td>
-                        </tr>
+                    <tbody id="topExportingCompanies">
                     </tbody>
                 </table>
             </div>
             <div class="col-lg-4">
                 <h4>Top exporting destirnations</h4>
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Data1</th>
-                            <th>Data2</th>
+                            <th>Destirnations</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>API DATA</td>
-                            <td>API DATA</td>
-                        </tr>
+                    <tbody id="topExportingDestirnations">
                     </tbody>
                 </table>
             </div>
             <div class="col-lg-4">
                 <h4>Species exported</h4>
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Data1</th>
-                            <th>Data2</th>
+                            <th>Species</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>API DATA</td>
-                            <td>API DATA</td>
-                        </tr>
+                    <tbody id="speciesExported">
                     </tbody>
                 </table>
             </div>
@@ -132,7 +143,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCtDnSil4XfB8kmsyfFGHrk-fqAykAwQC0"></script>
     <script type="text/javascript" src="js/initMap.js"></script>
-    <script type="text/javascript" src="js/custom.js"></script>
+    <script type="text/javascript" src="js/mapStyles.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src='http://underscorejs.org/underscore.js'></script>
 </body>

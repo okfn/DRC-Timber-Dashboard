@@ -33,6 +33,7 @@
 .heading {
     margin: 40px auto;
 }
+/*Font Styling*/
 
 h1,
 h2,
@@ -43,8 +44,14 @@ h6,
 p,
 span,
 input {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Titillium Web', sans-serif;
 }
 
 .contacts a {
@@ -75,11 +82,11 @@ input {
 }
 
 .globalwitness-logo {
-    color: #e00613;
+    color: #dd202c;
 }
 
 .globalwitness-logo:hover {
-    background: #e00613;
+    background: #dd202c;
     color: #fff;
     padding: 2px 5px;
     text-decoration: none;
@@ -88,10 +95,6 @@ input {
 
 .bottom-block {
     margin-top: 50px;
-}
-
-tr th {
-    background: #dddddd;
 }
 
 .custom-buttons {
@@ -112,27 +115,69 @@ tr th {
     background: #f1f1f1
 }
 
-.scrollit {
-    overflow: scroll;
-    height: 500px;
-}
-
-.semibold {
-    font-weight: 400;
-}
-
 .shipper-data {
     margin: 10px auto;
     border: 1px solid #eeeeee;
     border-radius: 4px;
 }
 
-.shipperTooltip {
-    font-weight: 500;
-}
-
 #errFilter {
     display: none;
-    color: #e00613;
+    color: #dd202c;
+}
+
+.year-filter {
+    margin-left: 10px;
+}
+/*Table styles*/
+
+.scrollit {
+    overflow: scroll;
+    height: 400px;
+}
+
+tr th {
+    background: #dddddd;
+}
+
+table {
+    width: 100%;
+}
+
+thead,
+tbody,
+tr,
+td,
+th {
+    display: block;
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 40px;
+    background: #dd202c;
+    color: #fff;
     ;
+    /*text-align: left;*/
+}
+
+tbody {
+    height: 400px;
+    overflow-y: auto;
+}
+
+thead {
+    /* fallback */
+}
+
+tbody td,
+thead th {
+    width: 50%;
+    float: left;
 }

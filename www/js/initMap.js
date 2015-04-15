@@ -1,62 +1,120 @@
 $(document).ready(function() {
 
+    getBaseData(1, 1, 2011, 2011)
+    getTopExportingCompanies(1, 1, 2011, 2011)
+    getTopExportingSpecies(1, 1, 2011, 2014)
+    getTopExportingDestirnations(1, 1, 2011, 2014)
 
     // Change filters event
     $("select").change(function() {
-        var from = $("#filterFrom").val()
-        var to = $("#filterTo").val()
-        initData(window.DRCData, from, to)
-        $("#filterTo>option").map(function() {
-            console.log($(this).val(), parseInt(from))
-            if ($(this).val() > parseInt(from)) {
-                $(this).attr('disabled')
-            } else {
-                $("#errFilter").fadeOut()
-            }
+        var fromQuarter = $("#filterfromQuarter").val()
+        var toQuarter = $("#filtertoQuarter").val()
+        var fromYear = $("#filterFromYear").val()
+        var toYear = $("#filterToYear").val()
+
+        initData(window.DRCData, fromQuarter, toQuarter)
+
+        if (parseInt(fromQuarter) > parseInt(toQuarter) || parseInt(fromYear) > parseInt(toYear)) {
+            $("#errFilter").fadeIn();
+            return
+        } else {
+            $("#errFilter").fadeOut()
+            getBaseData(toQuarter, fromQuarter, fromYear, toYear)
+            getTopExportingCompanies(toQuarter, fromQuarter, fromYear, toYear)
+            getTopExportingSpecies(toQuarter, fromQuarter, fromYear, toYear)
+            getTopExportingDestirnations(toQuarter, fromQuarter, fromYear, toYear)
+        }
+    });
+
+
+    function getBaseData(toQuarter, fromQuarter, fromYear, toYear) {
+        $.get('//datahub.io/api/action/datastore_search_sql?sql=SELECT * FROM "5939b04d-761f-4a12-8878-25bb0719ddbc" WHERE year >= 2011 AND year <= 2014 AND quarter >= 1 AND quarter <= 2', function(data) {
+            $(".result").html(data);
+            // Data raw
+            initData(data.result.records)
+
         });
-    });
+    }
+
+
+    function getTopExportingCompanies(toQuarter, fromQuarter, fromYear, toYear) {
+
+        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper","destination_country","shipper_type","year","quarter",sum("weight_tonnes"),"shipper_description" FROM "5939b04d-761f-4a12-8878-25bb0719ddbc" WHERE year >= ' + fromYear + ' AND year <= ' + toYear + ' AND quarter >= ' + fromQuarter + ' AND quarter <= ' + toQuarter + ' GROUP BY "shipper","destination_country","year","quarter","shipper_type","shipper_description"', function(data) {
+            $(".result").html(data);
+            $("#topExportingCompanies").empty()
+            _.each(data.result.records, function(item) {
+                $("#topExportingCompanies").append('<tr><td>' + item.shipper + ' </td> <td> ' + item.sum + ' Tons</td></tr>')
+            });
+
+        });
+    }
 
 
 
-    $.get("db/dataprototypedashboardwithlatlon.json", function(data) {
-        $(".result").html(data);
-        // Data raw
-        initData(data.rows)
+    function getTopExportingDestirnations(toQuarter, fromQuarter, fromYear, toYear) {
+        $.get('//datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_tonnes") FROM "5939b04d-761f-4a12-8878-25bb0719ddbc" WHERE year >= ' + fromYear + ' AND year <= ' + toYear + ' AND quarter >= ' + fromQuarter + ' AND quarter <= ' + toQuarter + ' GROUP BY "destination_country"', function(data) {
+            $(".result").html(data);
+            $("#topExportingDestirnations").empty()
+            _.each(data.result.records, function(item) {
 
-    });
+                $("#topExportingDestirnations").append('<tr><td>' + item.destination_country + ' </td> <td> ' + item.sum + ' Tons</td></tr>')
+            });
+
+        });
+    }
 
 
+    // Get exported species when dropdown was changed, will change when select route.
+    function getTopExportingSpecies(toQuarter, fromQuarter, fromYear, toYear) {
+
+        $.get('//datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_tonnes") FROM "5939b04d-761f-4a12-8878-25bb0719ddbc" WHERE year >= ' + fromYear + ' AND year <= ' + toYear + ' AND quarter >= ' + fromQuarter + ' AND quarter <= ' + toQuarter + ' GROUP BY "species"', function(data) {
+            $(".result").html(data);
+
+            $("#speciesExported").empty()
+            _.each(data.result.records, function(item) {
+                $("#speciesExported").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' Tons</td></tr>')
+            });
+
+        });
+    }
+
+
+    // Main initialization function
     function initData(data, from, to) {
-
-
         var DRCData = data;
         window.DRCData = DRCData
         var dataLocations = [];
         var dataDestirnations = []
             // Route and markers quantity loop ( 20 is ok )
-        for (var i = 0; i <= 200; i++) {
+        for (var i = 1; i <= 500; i++) {
+            if (DRCData[i].destination_country != DRCData[i - 1].destination_country) {
+                if (from && to) {
 
-            if (from && to) {
-                if (DRCData[i].quarter >= parseInt(from) && DRCData[i].quarter <= parseInt(to)) {
-                    if (dataDestirnations.length == 20 && dataLocations.length == 20) {
+                    if (dataDestirnations.length == 30 && dataLocations.length == 30) {
+                        break
+                    }
+                    // Markers
+                    dataLocations.push(generateLocation(DRCData[i]))
+                        // Routes
+                    dataDestirnations.push(generateDestirnation(DRCData[i]));
+
+
+                } else {
+                    if (dataDestirnations.length == 50) {
                         break
                     };
+
+
+
+
                     // Markers
                     dataLocations.push(generateLocation(DRCData[i]))
                         // Routes
                     dataDestirnations.push(generateDestirnation(DRCData[i]));
 
                 }
-            } else {
-                if (i == 20) {
-                    break
-                };
-                // Markers
-                dataLocations.push(generateLocation(DRCData[i]))
-                    // Routes
-                dataDestirnations.push(generateDestirnation(DRCData[i]));
-            }
 
+            };
         };
 
         dataDestirnations.push(generateDestirnation('default'));
@@ -71,6 +129,7 @@ $(document).ready(function() {
 // Generate destirnation data for polyline generation
 
 function generateDestirnation(data) {
+
 
     var dataDestirnationObj = {}
 
@@ -111,92 +170,16 @@ function generateLocation(data) {
 function initializeMap(dataLocations, dataDestirnations) {
 
     var mapOptions = {
-        center: dataDestirnations[dataDestirnations.length - 1].location,
+        center: new google.maps.LatLng(-3.693714, 23.991271),
         zoom: 3,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-
-        styles: [{
-            "featureType": "landscape",
-            "stylers": [{
-                "saturation": -100
-            }, {
-                "lightness": 65
-            }, {
-                "visibility": "on"
-            }]
-        }, {
-            "featureType": "poi",
-            "stylers": [{
-                "saturation": -100
-            }, {
-                "lightness": 51
-            }, {
-                "visibility": "simplified"
-            }]
-        }, {
-            "featureType": "road.highway",
-            "stylers": [{
-                "saturation": -100
-            }, {
-                "visibility": "simplified"
-            }]
-        }, {
-            "featureType": "road.arterial",
-            "stylers": [{
-                "saturation": -100
-            }, {
-                "lightness": 30
-            }, {
-                "visibility": "on"
-            }]
-        }, {
-            "featureType": "road.local",
-            "stylers": [{
-                "saturation": -100
-            }, {
-                "lightness": 40
-            }, {
-                "visibility": "on"
-            }]
-        }, {
-            "featureType": "transit",
-            "stylers": [{
-                "saturation": -100
-            }, {
-                "visibility": "simplified"
-            }]
-        }, {
-            "featureType": "administrative.province",
-            "stylers": [{
-                "visibility": "off"
-            }]
-        }, {
-            "featureType": "water",
-            "elementType": "labels",
-            "stylers": [{
-                "visibility": "on"
-            }, {
-                "lightness": -25
-            }, {
-                "saturation": -100
-            }]
-        }, {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [{
-                "hue": "#ffff00"
-            }, {
-                "lightness": -25
-            }, {
-                "saturation": -97
-            }]
-        }]
+        styles: window.mapStyles
 
     };
+
+
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         mapOptions);
-
-
 
     var infowindow = new google.maps.InfoWindow({});
 
@@ -229,6 +212,7 @@ function initializeMap(dataLocations, dataDestirnations) {
     // Set infowindows
     function setInfoWindows(country) {
         var routeClicked = country
+        window.selectedCountry = country
         _.each(window.markers, function(item) {
             if (item.title == routeClicked) {
                 setContent(routeClicked)
@@ -239,7 +223,6 @@ function initializeMap(dataLocations, dataDestirnations) {
         var shippers = []
         var i = 0
         _.each(window.DRCData, function(item) {
-            console.log(item)
             var shipperEach = {}
             i++
             if (item.destination_country == routeClicked) {
@@ -253,20 +236,18 @@ function initializeMap(dataLocations, dataDestirnations) {
             if (i == window.DRCData.length) {
                 generateShipperList()
             };
-
         });
-
         window.shippers = shippers
-
         generateShipperList()
-
         $("#country").text(country)
     }
 
 
     // Set content for infowindow
     function setContent(country) {
-        var contentString = '<div id="content">' +
+        var contentString =
+
+            '<div id="content">' +
             '<div id="siteNotice">' +
             '</div>' +
             '<h1 id="firstHeading" class="firstHeading"> ' + country + ' </h1>' +
@@ -317,13 +298,10 @@ function initializeMap(dataLocations, dataDestirnations) {
 
 
         google.maps.event.addListener(route, 'click', function() {
+            document.title = "DRC Timber Dashboard - " + this.country + "route";
             setInfoWindows(this.country)
                 // mymap represents the map you created using google.maps.Map
         });
-
-
-
-
     });
 
 
@@ -331,7 +309,9 @@ function initializeMap(dataLocations, dataDestirnations) {
 
 
 
-function generateShipperList(type) {
+
+function generateShipperList(type, elem) {
+
     $('.custom-button').css({
         background: '#dddddd',
         color: '#252525'
@@ -340,18 +320,37 @@ function generateShipperList(type) {
         background: '#e00613',
         color: '#fff'
     });
-    var shippers = window.shippers
+    if (window.current === $(elem).attr('id')) {
+        $('.custom-button').css({
+            background: '#dddddd',
+            color: '#252525'
+        });
+        type = undefined
+        window.current = 'All'
+    } else {
+        window.current = $(elem).attr('id')
+    }
+
+
     $(".scrollit").empty()
-    _.each(shippers, function(shipper) {
-        if (shipper.type.toLowerCase() != type && typeof type != 'undefined') {
-            return
+    $("#speciesExported").empty()
+    var URL = encodeURI('http://datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper","destination_country","shipper_type","year","quarter",sum("weight_tonnes"),"shipper_description" FROM "5939b04d-761f-4a12-8878-25bb0719ddbc" WHERE "destination_country" = \'' + window.selectedCountry + '\' AND year = 2011 AND quarter = 1 GROUP BY "shipper","destination_country","year","quarter","shipper_type","shipper_description"')
 
-        }
-
-        $(".scrollit").append('<div class = "col-lg-11 col-centered shipper-data" ><h3> Company ' + shipper.name + ' </h3> <h5> <span class = "semibold">Volume</span> : ' + shipper.weight + ' Tons</h5> <h5> <span class = "semibold" > Description </span> : ' + shipper.description + '</h5></div> ');
-
-
+    $.get(URL, function(data) {
+        $(".result").html(data);
+        // Data raw
+        var shippers = data.result.records
 
 
+        _.each(shippers, function(shipper) {
+            if (shipper.shipper_type.toLowerCase() != type && typeof type != 'undefined') {
+                return
+            }
+
+            $("#speciesExported").append('<tr><td>' + shipper.shipper + ' </td> <td> ' + shipper.sum + ' Tons</td></tr>')
+            $(".scrollit").append('<div class = "col-lg-11 col-centered shipper-data" ><h3> Company ' + shipper.shipper + ' </h3> <h5> <span class = "semibold">Volume</span> : ' + shipper.sum + ' Tons</h5> <h5> <span class = "semibold" > Description </span> : ' + shipper.shipper_description + '</h5></div> ');
+
+        });
     });
+
 }
