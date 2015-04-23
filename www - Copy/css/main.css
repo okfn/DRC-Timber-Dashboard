@@ -43,7 +43,6 @@
 }
 
 .map_container{
-    max-width: 100%;
     position: relative;
     margin-top:-110px;
     z-index: 1;
@@ -54,9 +53,8 @@
    height:inherit;
 }
 .time-filter{
-    width: 700px;
     position: relative;
-    z-index: 2;
+     z-index: 2;
     padding:0 20px;
     background: rgba(255,255,255,0.9);
     border-radius:5px;
@@ -82,10 +80,6 @@ padding:0 5px;
 
 }
 
-.shippers-slider{
-    display: none;
-}
-
 .slider{
     margin-top:-200px;
 position: relative;
@@ -102,84 +96,19 @@ color:#fff;
 padding:5px;
 }
 
-.slider .col-each .quantity { 
-padding:5px;
-background: #ffdc37;
-color:rgba(0,0,0,1);
-font-family: 'Titillium Web', sans-serif;
-font-weight: 600;
-}
 .slider .col-each div:last-child{
-
-background: rgba(255,255,255,1);
+padding:10px;
+background: orange;
+height: 150px;
+margin-top:30px;
 
 }
-
-.shippers-slider{
-    position: relative;
-    z-index: 2;
-    margin-top:-100px;
-}
-
-.slider{
-    margin-top:-130px;
-}
-
-.inner-content{
-   padding:10px;
-margin-top:30px; 
-}
-.inner-content input[type="checkbox"]{
-margin-right:10px; 
-}
-
-
-.slider .col-each div:last-child h3{
+.slider .col-each div:last-child h4{
 font-family: 'Titillium Web', sans-serif;
 font-weight: 600;
+
 }
 
-.button-slider button{
-    background: transparent;
-    border:none;
-    font-size:22px;
-}
-
-
-
-input[type="checkbox"] {
-    opacity:0;
-    height: 16px;
-    width: 17px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-}
-
-input[type="checkbox"] + label{
-    background-image: url('../img/checkbox-unchecked.png');
-    height: 16px;
-    width: 16px;
-    display:inline-block;
-    padding: 0 0 0 0px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-input[type="checkbox"]:checked + label{
-    background-image: url('../img/checkbox-checked.png');
-    height: 16px;
-    width: 16px;
-    display:inline-block;
-    padding: 0 0 0 0px;
-}
-
-.checkbox-wrapper div{
-margin:-2px 0 0 10px;
-}
 
 .bottom-block h3{
     font-weight: 600;
@@ -284,23 +213,17 @@ h2,
 h3 {
     font-family: 'Titillium Web', sans-serif;
 }
+
+
+
 .year-filter {
     margin-left: 10px;
-}
-.footer{
-    padding:40px 0;
-    background: #424846;
-    color:#fff;
-}
-.footer img{
-    margin:10px;
-    width: 100px
 }
 /*Table styles*/
 
 
 
-/*
+
 @media only screen and (max-width: 1700px) {
     .scrollit {
         overflow: scroll;
@@ -339,32 +262,4 @@ h3 {
     h1 {
         font-size: 24px;
     }
-}
-*/
-/* Smartphones (portrait and landscape) ----------- */
-
-
-@media only screen and (max-width: 960px) {
-    
-.map_container{
-
-    margin-top:50px;
-
-}
-
-    .form-group {
-        width: 100% !important;
-    }
-    .time-filter{
-        text-align:center;
-    width: 80%;
-    margin:0 auto;
-    float:none;
-    position: relative;
-     z-index: 9999;
-    }
-.year-filter {
-    margin-left: 0px;
-}
-
 }
