@@ -3,138 +3,203 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Open Knowledge Timber Route Visualization</title>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900' rel='stylesheet' type='text/css'>
+    <title>DRC Timber Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="icon" href="favicon.ico" />
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300,600,400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="initializeMap()">
-    <div class="row heading text-center">
-        <div class="col-lg-4 col-md-8 col-sm-11 col-centered pull-left"></div>
-        <div class="col-lg-4 col-md-8 col-sm-11 col-centered pull-left">
-            <h1>DRC Timber Trade Dashboard</h1>
-            <h5 class="text-right">A project by <a href="http://new.globalwitness.org/" class="globalwitness-logo
-">Global Witness</a></h5>
-        </div>
-        <div class="col-lg-4 col-md-8 col-sm-11 col-centered pull-left">
-            <ul class="contacts">
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Source Information</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-lg-11 top-block col-centered">
-        <div class="row">
-            <div class="col-lg-3">
-                <h1>Filter by time</h1>
-                <h5>From</h5>
-                <div class="row">
-                    <div class="form-group col-lg-6 col-sm-11">
-                        <label for="sel1">Quater:</label>
-                        <select class="form-control" id="filterFrom">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
+<body>
+<div class="row no-side-margins">
+<div class="container">
+<div class="row header">
+<div class="col-lg-7 col-sm-12 pull-left"><h2>DRC TIMBER TRADE <span>DASHBOARD</span></h2><h3 style="margin-top:-10px">A project by Global Witness</h3></div>
+<div class="col-lg-5 col-sm-12 links pull-left">
+<div class="text-center col-lg-6"><a class="inline" href=""><i class="glyphicon glyphicon-envelope"></i>Contact</a></div>
+<div class="text-center col-lg-6"><a class="inline" href=""><i class="glyphicon glyphicon-info-sign"></i>Source information</a></div>
+</div>
+</div>
+</div>
+
+                <div class="container">
+                    <div class="col-lg-6 col-md-12 col-sm-11 time-filter">
+                             <div class="col-lg-3 col-md-3"> 
+                             <h5>Filter by time</h5>
                 </div>
-                <h5>To</h5>
-                <div class="row">
-                    <div class="form-group col-lg-6 col-sm-11">
-                        <label for="sel1">Quater:</label>
-                        <select class="form-control" id="filterTo">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-11">
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                       
+                            <select class="form-control" id="filterfromQuarter">
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                  
+                            <select class="form-control year-filter" id="filterFromYear">
+                                <option value="2011">2011</option>
+                                <option selected value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option  value="2014">2014</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <p id="errFilter">From Quater must be less than To Quater value</p>
-                <button class="btn btn-danger" id="filter">Filter</button>
+                    <div class="col-lg-1 col-xs-11 col-md-1">to</div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-11">
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                         
+                            <select class="form-control" id="filtertoQuarter">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option selected value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="padding:0;margin:0">
+                 
+                            <select class="form-control year-filter" id="filterToYear">
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option selected value="2014">2014</option>
+                            </select>
+                        </div>
+                    </div>
             </div>
-            <div class="col-lg-6">
+                 
+                </div>
+<div class="row no-side-margins">
                 <div class="map_container">
                     <div id="map_canvas"></div>
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <h4>Logging companies that export to <span id="country">country</span></h4>
+</div>
+            
+<div class="col-lg-9 col-centered shippers-slider">
+<div class="col-lg-1 button-slider"><button id="prevSlide" class="glyphicon glyphicon-chevron-left"></button></div>
+        <div class="col-lg-10 slider">
+<div class="col-lg-3">
+          <div class="row col-each" >
+          <div class="weight col-lg-6 col-sm-12" id="countrySelectedAmount">Select route</div>
+          <div class="col-lg-4 hide-sm"></div>
+          <div class="quantity col-lg-2 col-sm-12 text-center"><i class="glyphicon glyphicon-tree-conifer"></i><span id="speciesNumber">!</span></div>
+              <div class="inner-content">
+              <img style="width:100%" src="img/truck.png">
+                  <h3 id="countrySelected">Select route</h3>
+                  <div class="col-lg-5 checkbox-wrapper">
+    <input class="typeFilter" id="artisinal" type="checkbox" />
+    <label></label>
+    <div>Arisinal</div>
+</div>
+                  <div class="col-lg-7 checkbox-wrapper">
+    <input class="typeFilter" id="concession" type="checkbox" />
+    <label></label>
+    <div>Concession</div>
+</div>
+                
+              </div>
+          </div>
+          </div>
+
+<div class="col-lg-9" id="slider">
+
+       
+</div>
+       
+           
+              <!--   <p id="errFilter">From Quater must be less than To Quater value</p> -->
+           
+           
+      <!--       <div class="col-lg-3">
+                <h4>Logging companies that export to <span class="text-red" id="country">country</span></h4>
                 <div class="row custom-buttons">
                     <div class="col-lg-6">
-                        <div class="text-center custom-button" id="concession" onclick="generateShipperList('concession',this)">Concession based</div>
+                        <div class="text-center custom-button filter-type" id="concession">Concession based</div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="text-center custom-button" id="artisinal" onclick="generateShipperList('artisinal',this)">Artisanal</div>
+                        <div class="text-center custom-button filter-type" id="artisinal">Artisanal</div>
                     </div>
                 </div>
-                <div class="scrollit 
-">
+                <div class="scrollit">
                     <h4 class="text-center">Click on route to select it</h4>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <div class="row bottom-block
-">
-            <div class="col-lg-4">
-                <h4>Top exporting companies</h4>
-                <table class="table table-bordered">
+        <div class="col-lg-1 button-slider"><button id="nextSlide" class="glyphicon glyphicon-chevron-right"></button></div>
+</div>
+
+        <div class="container bottom-block">
+            <div class="col-lg-4" id="topExportingCompanies">
+                <h3>exporting companies</h3>
+                <div class="dateLabel"></div>
+                <table class="table table-striped js-tablesort">
                     <thead>
                         <tr>
-                            <th>Data1</th>
-                            <th>Data2</th>
+                            <th data-sort="string">Shipper<i class="js-icon glyphicon pull-right"></i></th>
+                            <th data-sort="float">Amount<i class="js-icon glyphicon pull-right"></i></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>API DATA</td>
-                            <td>API DATA</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-4">
-                <h4>Top exporting destirnations</h4>
-                <table class="table table-bordered">
+            <div class="col-lg-4" id="topExportingDestirnations">
+                <h3>export destirnations</h3>
+                <div class="dateLabel"></div>
+                <table class="table table-striped js-tablesort">
                     <thead>
                         <tr>
-                            <th>Data1</th>
-                            <th>Data2</th>
+                            <th data-sort="string">Destirnations<i class="js-icon glyphicon pull-right"></i></th>
+                            <th data-sort="float">Amount<i class="js-icon glyphicon pull-right"></i></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>API DATA</td>
-                            <td>API DATA</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-4">
-                <h4>Species exported</h4>
-                <table class="table table-bordered">
+            <div class="col-lg-4" id="speciesExported">
+                <h3 id="speciesTableHeading">Species exported</h3>
+                <div class="dateLabel"></div>
+                <table class="table table-striped js-tablesort">
                     <thead>
                         <tr>
-                            <th>Data1</th>
-                            <th>Data2</th>
+                            <th data-sort="string">Species<i class="js-icon glyphicon pull-right"></i></th>
+                            <th data-sort="float">Amount<i class="js-icon glyphicon pull-right"></i></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>API DATA</td>
-                            <td>API DATA</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+<div class="row footer no-side-margins">
+<div class="container">
+    <div class="col-lg-5">
+        <p>Built using the CKAN Datastore</p>
+        <p>Data and content available for reuse under CC-BY</p>
+        <p>Ivory Coast photo by Wegmann, licensed under CC-BY 3.0</p>
     </div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-3">
+    <div class="col-lg-6"><img src="img/gw_logo.png"></div>
+        <div class="col-lg-6"><img src="img/on_logo.png"></div>
+        
+    </div>
+    </div>
+</div>
+</div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCtDnSil4XfB8kmsyfFGHrk-fqAykAwQC0"></script>
-    <script type="text/javascript" src="js/initMap.js"></script>
-    <script type="text/javascript" src="js/custom.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.stupidtable.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/mapStyles.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src='http://underscorejs.org/underscore.js'></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCtDnSil4XfB8kmsyfFGHrk-fqAykAwQC0"></script>
 </body>
 
 </html>
