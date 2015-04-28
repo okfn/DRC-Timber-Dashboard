@@ -611,12 +611,15 @@ $(document).ready(function() {
         //
         //
 
+        var maxWeight = 0;
         _.each(dataDestirnations, function(item) {
+            if (item.weight > maxWeight) {
+                maxWeight = item.weight;
+            }
+        });
 
-            var markerSize = item.weight.toString().length - 4;
-            if (markerSize > 5) {
-                markerSize = 5;
-            };
+        _.each(dataDestirnations, function(item) {
+            var markerSize = Math.round(Math.pow(item.weight / maxWeight, 1/Math.PI) * 4) + 1;
             storage.set(markerSize, item.country);
             if (item.country == "Democratic republic of Congo") {
                 icon = {
