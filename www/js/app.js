@@ -330,7 +330,10 @@ $(document).ready(function() {
             center: new google.maps.LatLng(-3.693714, 23.991271),
             zoom: 3,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            styles: window.mapStyles
+            styles: window.mapStyles,
+
+            mapTypeControl: false,
+            streetViewControl: false
         };
 
 
