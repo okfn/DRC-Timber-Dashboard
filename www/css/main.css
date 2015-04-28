@@ -308,10 +308,17 @@ h3 {
     background: #424846;
     color:#fff;
 }
-.footer img{
-    margin:10px;
-    width: 100px
+.footer img {
+    margin: 0px 0px 0px 20px;
+    width: auto;
+    height: 100px;
 }
+
+.footer img.offset-top-7 {
+    position: relative;
+    top: -7px;
+}
+
 /*Table styles*/
 
 

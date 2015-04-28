@@ -337,6 +337,22 @@ $(document).ready(function() {
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
 
+        map.setOptions({
+            scrollwheel: false
+        });
+
+        $('.map_container').off('click').off('mouseleave')
+            .on('click', function(event){
+                map.setOptions({
+                    scrollwheel: true
+                });
+            })
+            .on('mouseleave', function(event){
+                map.setOptions({
+                    scrollwheel: false
+                });
+            });
+
         var infowindow = new google.maps.InfoWindow({});
 
         var lineSymbol = {
