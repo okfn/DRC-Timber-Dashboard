@@ -319,6 +319,10 @@ h3 {
     top: -7px;
 }
 
+.margin-10 {
+    margin: 0px 10px;
+}
+
 /*Table styles*/
 
 
@@ -368,26 +372,30 @@ h3 {
 
 
 @media only screen and (max-width: 960px) {
+
+    .header .pull-left,
+    .header .pull-right {
+        float: none !important;
+    }
     
-.map_container{
-
-    margin-top:50px;
-
-}
+    .map_container{
+    }
 
     .form-group {
         width: 100% !important;
     }
+
     .time-filter{
         text-align:center;
-    width: 80%;
-    margin:0 auto;
-    float:none;
-    position: relative;
-     z-index: 9999;
+        width: 80%;
+        margin:0 auto;
+        float:none;
+        position: relative;
+        z-index: 9999;
     }
-.year-filter {
-    margin-left: 0px;
-}
+
+    .year-filter {
+        margin-left: 0px;
+    }
 
 }
