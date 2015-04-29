@@ -164,7 +164,7 @@ $(document).ready(function() {
             $("#topExportingCompanies .dateLabel").html(" from <span>" + dateArray[0] + "</span> to <span>" + dateArray[1] + "</span>");
             storage.set(data.result.records, 'topExportingCompanies');
             _.each(data.result.records, function(item) {
-                $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td> <td> ' + item.sum + ' Tons</td></tr>');
+                $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
             });
 
         });
@@ -189,7 +189,7 @@ $(document).ready(function() {
             storage.set(data.result.records, 'topExportingDestinations');
 
             _.each(data.result.records, function(item) {
-                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td> <td> ' + item.sum + ' Tons</td></tr>');
+                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
             });
         });
     }
@@ -214,7 +214,7 @@ $(document).ready(function() {
             $("#speciesExported .dateLabel").html("from <span class='text-red'>" + dateArray[0] + "</span> to <span class='text-red'>" + dateArray[1] + "</span>");
             storage.set(data.result.records, 'topExportingSpecies');
             _.each(data.result.records, function(item) {
-                $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' Tons</td></tr>');
+                $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
             });
 
         });
@@ -412,7 +412,7 @@ $(document).ready(function() {
 
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_tonnes") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
-                $("#countrySelectedAmount").text(data.result.records[0].sum + " tons");
+                $("#countrySelectedAmount").text(data.result.records[0].sum + " tonnes");
             });
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",count(DISTINCT "species") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
@@ -456,7 +456,7 @@ $(document).ready(function() {
         slider.empty();
         for (var i = 0; i < data.length; i++) {
             slider.append('<div class="col-lg-4 col-each"><div class="weight col-lg-6 col-sm-12 text-nowrap">' +
-                data[i].sum + ' tons</div><div class="inner-content"><h3>' + data[i].shipper +
+                data[i].sum + ' tonnes</div><div class="inner-content"><h3>' + data[i].shipper +
                 '</h3><p class="slider-desc">Description : ' + data[i].shipper_description +
                 ' </p></div></div>');
         };
@@ -544,7 +544,7 @@ $(document).ready(function() {
             _.each(storage.get('baseData'), function(countryEach) {
                 if (countryEach.destination_country == country) {
                     totalWeight = totalWeight + parseFloat(countryEach.sum)
-                    $("#amountTotalTooltip").text('Total amount of shipped timber : ' + parseInt(totalWeight) + ' tons ');
+                    $("#amountTotalTooltip").text('Total amount of shipped timber : ' + parseInt(totalWeight) + ' tonnes ');
                     var specieObjTemp = {};
                     specieObjTemp.specie = countryEach.species;
                     specieObjTemp.weight = countryEach.sum;
@@ -599,7 +599,7 @@ $(document).ready(function() {
                 $("#speciesExported tbody").empty();
                 storage.set(data.result.records, 'topExportingSpecies');
                 _.each(data.result.records, function(item) {
-                    $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' Tons</td></tr>');
+                    $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
                 });
             });
 
