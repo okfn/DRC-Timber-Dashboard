@@ -413,6 +413,7 @@ $(document).ready(function() {
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_tonnes") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
                 $("#countrySelectedAmount").text(data.result.records[0].sum + " tonnes");
+                $("#countrySelectedAmountInPopup").text(data.result.records[0].sum + " tonnes");
             });
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",count(DISTINCT "species") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
@@ -543,7 +544,7 @@ $(document).ready(function() {
 
             _.each(storage.get('baseData'), function(countryEach) {
                 if (countryEach.destination_country == country) {
-                    totalWeight = totalWeight + parseFloat(countryEach.sum)
+                    totalWeight += parseFloat(countryEach.sum)
                     $("#amountTotalTooltip").text('Total amount of shipped timber : ' + parseInt(totalWeight) + ' tonnes ');
                     var specieObjTemp = {};
                     specieObjTemp.specie = countryEach.species;
@@ -582,7 +583,7 @@ $(document).ready(function() {
                 '<h1 id="firstHeading" class="firstHeading"> ' + country + ' </h1>' +
                 '<div id="bodyInfoWindowContent">' +
                 '<h5 id="amountTotalTooltip"></h5>' +
-                '<h5>Species shipped:</h5>' +
+                '<h5>Species shipped: <span id="countrySelectedAmountInPopup"></span></span></h5>' +
                 '<div id="speciesTooltip">' + species + '</div>' +
                 '</div>' +
                 '</div>';
