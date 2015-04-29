@@ -15,7 +15,7 @@ $(document).ready(function() {
     getBaseData(storage.get('dateArray'));
     getTopExportingCompanies(storage.get('dateArray'));
     getTopExportingSpecies(storage.get('dateArray'));
-    getTopExportingDestirnations(storage.get('dateArray'));
+    getTopExportingDestinations(storage.get('dateArray'));
 
 
     $(".filter-type").click(function(event) {
@@ -119,7 +119,7 @@ $(document).ready(function() {
             getBaseData(storage.get('dateArray'));
             getTopExportingCompanies(storage.get('dateArray'));
             getTopExportingSpecies(storage.get('dateArray'));
-            getTopExportingDestirnations(storage.get('dateArray'));
+            getTopExportingDestinations(storage.get('dateArray'));
         }
     });
 
@@ -174,22 +174,22 @@ $(document).ready(function() {
     //
     //
     //
-    // getTopExportingDestirnations
+    // getTopExportingDestinations
     //
     //
     //
 
-    function getTopExportingDestirnations(dateArray) {
+    function getTopExportingDestinations(dateArray) {
         $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_tonnes") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\' GROUP BY "destination_country" ORDER BY sum("weight_tonnes") DESC', function(data) {
-            $("#topExportingDestirnations .js-icon")
+            $("#topExportingDestinations .js-icon")
                 .removeClass('glyphicon-triangle-top')
                 .removeClass('glyphicon-triangle-bottom');
-            $("#topExportingDestirnations tbody").empty();
-            $("#topExportingDestirnations .dateLabel").html(" from <span class='text-red'>" + dateArray[0] + "</span> to <span class='text-red'>" + dateArray[1] + "</span>");
-            storage.set(data.result.records, 'topExportingDestirnations');
+            $("#topExportingDestinations tbody").empty();
+            $("#topExportingDestinations .dateLabel").html(" from <span class='text-red'>" + dateArray[0] + "</span> to <span class='text-red'>" + dateArray[1] + "</span>");
+            storage.set(data.result.records, 'topExportingDestinations');
 
             _.each(data.result.records, function(item) {
-                $("#topExportingDestirnations tbody").append('<tr><td>' + item.destination_country + ' </td> <td> ' + item.sum + ' Tons</td></tr>');
+                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td> <td> ' + item.sum + ' Tons</td></tr>');
             });
         });
     }
@@ -455,7 +455,7 @@ $(document).ready(function() {
         var data = storage.get("dataShippersCountry");
         slider.empty();
         for (var i = 0; i < data.length; i++) {
-            slider.append('<div class="col-lg-4 col-each"><div class="weight col-lg-6 col-sm-12">' +
+            slider.append('<div class="col-lg-4 col-each"><div class="weight col-lg-6 col-sm-12 text-nowrap">' +
                 data[i].sum + ' tons</div><div class="inner-content"><h3>' + data[i].shipper +
                 '</h3><p class="slider-desc">Description : ' + data[i].shipper_description +
                 ' </p></div></div>');
