@@ -111,33 +111,16 @@
           </div>
 
 <div class="col-lg-9 slider-items" id="slider"></div>
-       
-           
-              <!--   <p id="errFilter">From Quater must be less than To Quater value</p> -->
-           
-           
-      <!--       <div class="col-lg-3">
-                <h4>Logging companies that export to <span class="text-red" id="country">country</span></h4>
-                <div class="row custom-buttons">
-                    <div class="col-lg-6">
-                        <div class="text-center custom-button filter-type" id="concession">Concession based</div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="text-center custom-button filter-type" id="artisinal">Artisanal</div>
-                    </div>
-                </div>
-                <div class="scrollit">
-                    <h4 class="text-center">Click on route to select it</h4>
-                </div>
-            </div> -->
         </div>
         <div class="col-lg-1 button-slider"><button id="nextSlide" class="glyphicon glyphicon-chevron-right"></button></div>
 </div>
 
         <div class="container bottom-block">
             <div class="col-lg-4" id="topExportingCompanies">
-                <h3>Exporting companies</h3>
-                <div class="dateLabel"></div>
+                <div data-mh="table-headings">
+                    <h3>Exporting companies</h3>
+                    <div class="dateLabel"></div>
+                </div>
                 <table class="table table-striped info-table js-tablesort">
                     <thead>
                         <tr>
@@ -150,8 +133,10 @@
                 </table>
             </div>
             <div class="col-lg-4" id="topExportingDestinations">
-                <h3>Export destinations</h3>
-                <div class="dateLabel"></div>
+                <div data-mh="table-headings">
+                    <h3>Export destinations</h3>
+                    <div class="dateLabel"></div>
+                </div>
                 <table class="table table-striped info-table js-tablesort">
                     <thead>
                         <tr>
@@ -164,8 +149,10 @@
                 </table>
             </div>
             <div class="col-lg-4" id="speciesExported">
-                <h3 id="speciesTableHeading">Species exported</h3>
-                <div class="dateLabel"></div>
+                <div data-mh="table-headings">
+                    <h3 id="speciesTableHeading">Species exported</h3>
+                    <div class="dateLabel"></div>
+                </div>
                 <table class="table table-striped info-table js-tablesort">
                     <thead>
                         <tr>
@@ -194,6 +181,7 @@
 </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.stupidtable.min.js"></script>
+    <script type="text/javascript" src="js/jquery.matchHeight-min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/mapStyles.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
