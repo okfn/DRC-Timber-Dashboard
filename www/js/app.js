@@ -574,7 +574,7 @@ $(document).ready(function() {
                     item = item.charAt(0).toUpperCase() + item.slice(1);
                 }
                 return '<span>' + item + '</span>';
-            }).join(', ');
+            });
 
             var contentString =
                 '<div id="content">' +
@@ -583,8 +583,8 @@ $(document).ready(function() {
                 '<h1 id="firstHeading" class="firstHeading"> ' + country + ' </h1>' +
                 '<div id="bodyInfoWindowContent">' +
                 '<h5 id="amountTotalTooltip"></h5>' +
-                '<h5>Species shipped: <span id="countrySelectedAmountInPopup"></span></span></h5>' +
-                '<div id="speciesTooltip">' + species + '</div>' +
+                '<h5>Amount: <span id="countrySelectedAmountInPopup"></span></h5>' +
+                (species.length ? '<h5>Species: <span id="speciesTooltip">' + species.join(', ') + '</span></h5>' : '') +
                 '</div>' +
                 '</div>';
 
