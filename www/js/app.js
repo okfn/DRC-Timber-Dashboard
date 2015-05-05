@@ -458,7 +458,7 @@ $(document).ready(function() {
         for (var i = 0; i < data.length; i++) {
             slider.append('<div class="col-lg-4 col-each"><div class="weight col-lg-6 col-sm-12 text-nowrap">' +
                 data[i].sum + ' tonnes</div><div class="inner-content"><h3>' + data[i].shipper +
-                '</h3><p class="slider-desc">Description : ' + data[i].shipper_description +
+                '</h3><p class="slider-desc">' + data[i].shipper_description +
                 ' </p></div></div>');
         };
         updateSliderButtons();
