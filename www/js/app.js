@@ -162,6 +162,7 @@ $(document).ready(function() {
                 .removeClass('glyphicon-triangle-bottom');
             $("#topExportingCompanies tbody").empty();
             $("#topExportingCompanies .dateLabel").html(" from <span>" + dateArray[0] + "</span> to <span>" + dateArray[1] + "</span>");
+            $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingCompanies');
             _.each(data.result.records, function(item) {
                 $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
@@ -186,6 +187,7 @@ $(document).ready(function() {
                 .removeClass('glyphicon-triangle-bottom');
             $("#topExportingDestinations tbody").empty();
             $("#topExportingDestinations .dateLabel").html(" from <span class='text-red'>" + dateArray[0] + "</span> to <span class='text-red'>" + dateArray[1] + "</span>");
+            $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingDestinations');
 
             _.each(data.result.records, function(item) {
@@ -213,6 +215,7 @@ $(document).ready(function() {
                 .removeClass('glyphicon-triangle-bottom');
             $("#speciesExported tbody").empty();
             $("#speciesExported .dateLabel").html("from <span class='text-red'>" + dateArray[0] + "</span> to <span class='text-red'>" + dateArray[1] + "</span>");
+            $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingSpecies');
             _.each(data.result.records, function(item) {
                 $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');

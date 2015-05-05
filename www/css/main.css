@@ -166,38 +166,35 @@ font-weight: 600;
 
 
 
-input[type="checkbox"] {
-    opacity:0;
-    height: 16px;
-    width: 17px;
+.checkbox-wrapper label input[type="checkbox"] {
+    opacity: 0;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
+    top: -100px;
+    left: -100px;
 }
 
-input[type="checkbox"] + label{
+.checkbox-wrapper label input[type="checkbox"] + i {
     background-image: url('../img/checkbox-unchecked.png');
-    height: 16px;
-    width: 16px;
-    display:inline-block;
-    padding: 0 0 0 0px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
 }
 
-input[type="checkbox"]:checked + label{
+.checkbox-wrapper label input[type="checkbox"]:checked + i {
     background-image: url('../img/checkbox-checked.png');
-    height: 16px;
-    width: 16px;
-    display:inline-block;
-    padding: 0 0 0 0px;
 }
 
-.checkbox-wrapper div{
-margin:-2px 0 0 10px;
+.checkbox-wrapper label i {
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    padding: 0px;
+    margin: 0px 4px 0px 0px;
+    vertical-align: middle;
+}
+
+.checkbox-wrapper label {
+    position: relative;
+    margin: -2px 20px 0px 0px;
+    font-weight: normal;
+    overflow: hidden;
 }
 
 .bottom-block h3{
