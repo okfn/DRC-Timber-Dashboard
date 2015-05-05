@@ -208,10 +208,12 @@ margin:-2px 0 0 10px;
     font-size:1.2em;
     margin-bottom: 10px
 }
-.bottom-block .dateLabel span{
-background: #ffdc37;
-padding:2px 5px;
-color:#424846;
+.bottom-block .dateLabel span,
+#speciesTableHeading span {
+    display: inline-block;
+    background: #ffdc37;
+    padding: 2px 5px;
+    color: #424846;
 }
 
 .scrollit {
