@@ -118,6 +118,11 @@ color:#fff;
 padding:5px;
 }
 
+.slider .country-selected-amount-block {
+    margin-top: 0px;
+    background: #fff;
+}
+
 .slider .col-each .quantity { 
 padding:5px;
 background: #ffdc37;
@@ -125,10 +130,8 @@ color:rgba(0,0,0,1);
 font-family: 'Titillium Web', sans-serif;
 font-weight: 600;
 }
-.slider .col-each div:last-child{
-
-background: rgba(255,255,255,1);
-
+.slider .slider-items .col-each div:last-child{
+    background: #fff;
 }
 
 .shippers-slider{
@@ -221,34 +224,34 @@ margin:-2px 0 0 10px;
     height: 400px;
 }
 
-tr th {
-    background: #dddddd;
-}
-
 table {
     width: 100%;
 }
 
-thead,
-tbody,
-tr,
-td,
-th {
+.info-table tr th {
+    background: #dddddd;
+}
+
+.info-table thead,
+.info-table tbody,
+.info-table tr,
+.info-table td,
+.info-table th {
     display: block;
 }
-tbody{
+.info-table tbody{
     margin-top:-20px;
 }
-tr:after {
+.info-table tr:after {
     content: ' ';
     display: block;
     visibility: hidden;
     clear: both;
 }
-thead{
+.info-table thead{
     padding:20px 0;
 }
-thead th {
+.info-table thead th {
     height: 40px;
     background: #424846;
     cursor: pointer;
@@ -258,26 +261,26 @@ thead th {
     /*text-align: left;*/
 }
 
-thead th:first-child{
+.info-table thead th:first-child{
 
      border-top-left-radius: 5px;
 }
-thead th:last-child{
+.info-table thead th:last-child{
     padding:50px 0;
      border-top-right-radius: 5px;
 }
 
-tbody {
+.info-table tbody {
     height: 400px;
     overflow-y: auto;
 }
 
-thead {
+.info-table thead {
     /* fallback */
 }
 
-tbody td,
-thead th {
+.info-table tbody td,
+.info-table thead th {
     width: 50%;
     float: left;
 }

@@ -456,7 +456,7 @@ $(document).ready(function() {
         var data = storage.get("dataShippersCountry");
         slider.empty();
         for (var i = 0; i < data.length; i++) {
-            slider.append('<div class="col-lg-4 col-each"><div class="weight col-lg-6 col-sm-12 text-nowrap">' +
+            slider.append('<div class="col-lg-4 col-each"><div class="weight pull-left text-nowrap">' +
                 data[i].sum + ' tonnes</div><div class="inner-content"><h3>' + data[i].shipper +
                 '</h3><p class="slider-desc">' + data[i].shipper_description +
                 ' </p></div></div>');

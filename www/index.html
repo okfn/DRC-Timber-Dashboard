@@ -82,13 +82,17 @@
             
 <div class="col-lg-9 col-centered shippers-slider">
 <div class="col-lg-1 button-slider"><button id="prevSlide" class="glyphicon glyphicon-chevron-left"></button></div>
-        <div class="col-lg-10 slider">
+<div class="col-lg-10 slider">
 <div class="col-lg-3">
           <div class="row col-each" >
-          <div class="weight col-lg-6 col-sm-12 text-nowrap" id="countrySelectedAmount">Select route</div>
-          <div class="col-lg-4 hide-sm"></div>
-          <div class="quantity col-lg-2 col-sm-12 text-center text-nowrap"><i class="glyphicon glyphicon-tree-conifer"></i><span id="speciesNumber">!</span></div>
-              <div class="inner-content clearfix">
+              <table class="country-selected-amount-table"><tbody><tr>
+                  <td><div class="weight pull-left text-nowrap" id="countrySelectedAmount">Select route</div></td>
+                  <td><div class="quantity pull-right text-center text-nowrap"><i class="glyphicon glyphicon-tree-conifer"></i><span id="speciesNumber">!</span></div></td>
+              </tr></tbody></table>
+
+          <!--<div class="col-lg-4 hide-sm"></div>-->
+
+              <div class="country-selected-amount-block inner-content clearfix">
               <img style="width:100%" src="img/truck.png">
                   <h3 id="countrySelected">Select route</h3>
                   <div class="col-lg-5 checkbox-wrapper">
@@ -106,10 +110,7 @@
           </div>
           </div>
 
-<div class="col-lg-9" id="slider">
-
-       
-</div>
+<div class="col-lg-9 slider-items" id="slider"></div>
        
            
               <!--   <p id="errFilter">From Quater must be less than To Quater value</p> -->
@@ -137,7 +138,7 @@
             <div class="col-lg-4" id="topExportingCompanies">
                 <h3>Exporting companies</h3>
                 <div class="dateLabel"></div>
-                <table class="table table-striped js-tablesort">
+                <table class="table table-striped info-table js-tablesort">
                     <thead>
                         <tr>
                             <th data-sort="string">Shipper<i class="js-icon glyphicon pull-right"></i></th>
@@ -151,7 +152,7 @@
             <div class="col-lg-4" id="topExportingDestinations">
                 <h3>Export destinations</h3>
                 <div class="dateLabel"></div>
-                <table class="table table-striped js-tablesort">
+                <table class="table table-striped info-table js-tablesort">
                     <thead>
                         <tr>
                             <th data-sort="string">Destinations<i class="js-icon glyphicon pull-right"></i></th>
@@ -165,7 +166,7 @@
             <div class="col-lg-4" id="speciesExported">
                 <h3 id="speciesTableHeading">Species exported</h3>
                 <div class="dateLabel"></div>
-                <table class="table table-striped js-tablesort">
+                <table class="table table-striped info-table js-tablesort">
                     <thead>
                         <tr>
                             <th data-sort="string">Species<i class="js-icon glyphicon pull-right"></i></th>
