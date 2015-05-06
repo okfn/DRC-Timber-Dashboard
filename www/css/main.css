@@ -31,6 +31,16 @@
     color: #424846; 
 }
 
+.header h2 a,
+.header h3 a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+.header .links a.current {
+    color: #dd202c;
+}
+
 .header div:last-child a{
     font-weight: 600;
     font-size:1em;
