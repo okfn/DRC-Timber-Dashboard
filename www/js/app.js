@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+    var formatNumber = function(n) {
+        var n = parseFloat('' + n);
+        if (isNaN(n) || !isFinite(n)) return '0,00';
+        return n.toFixed(2).replace('.', ',');
+    }
+
     var storage = {
         set: function(data, varName) {
             storage.data[varName] = data;
@@ -82,7 +88,7 @@ $(document).ready(function() {
                 var dayTo = '-9-30';
                 break;
             case 4:
-                var dayTo = '-112-31';
+                var dayTo = '-12-31';
                 break;
 
         }
@@ -165,7 +171,7 @@ $(document).ready(function() {
             $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingCompanies');
             _.each(data.result.records, function(item) {
-                $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
+                $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
             });
 
         });
@@ -191,7 +197,7 @@ $(document).ready(function() {
             storage.set(data.result.records, 'topExportingDestinations');
 
             _.each(data.result.records, function(item) {
-                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
+                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
             });
         });
     }
@@ -218,7 +224,7 @@ $(document).ready(function() {
             $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingSpecies');
             _.each(data.result.records, function(item) {
-                $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
+                $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
             });
 
         });
@@ -417,8 +423,8 @@ $(document).ready(function() {
 
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_tonnes") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
-                $("#countrySelectedAmount").text(data.result.records[0].sum + " tonnes");
-                $("#countrySelectedAmountInPopup").text(data.result.records[0].sum + " tonnes");
+                $("#countrySelectedAmount").text(formatNumber(data.result.records[0].sum) + " tonnes");
+                $("#countrySelectedAmountInPopup").text(formatNumber(data.result.records[0].sum) + " tonnes");
             });
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",count(DISTINCT "species") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
