@@ -588,7 +588,7 @@ $(document).ready(function() {
                 '<h1 id="firstHeading" class="firstHeading"> ' + country + ' </h1>' +
                 '<div id="bodyInfoWindowContent">' +
                 '<h5 id="amountTotalTooltip"></h5>' +
-                '<h5>Amount: <span id="countrySelectedAmountInPopup"></span></h5>' +
+                '<h5>Total (RWE): <span id="countrySelectedAmountInPopup"></span></h5>' +
                 (species.length ? '<h5>Species: <span id="speciesTooltip">' + species.join(', ') + '</span></h5>' : '') +
                 '</div>' +
                 '</div>';
