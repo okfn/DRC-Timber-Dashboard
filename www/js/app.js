@@ -331,7 +331,8 @@ $(document).ready(function() {
     function initializeMap(dataLocations, dataDestirnations) {
 
         var mapOptions = {
-            center: new google.maps.LatLng(-3.693714, 23.991271),
+            // Shift map down because most markers are on the top of map
+            center: new google.maps.LatLng(-3.693714 + 15, 23.991271),
             zoom: 3,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             styles: window.mapStyles,
