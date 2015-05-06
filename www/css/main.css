@@ -31,6 +31,12 @@
     color: #424846; 
 }
 
+.header h3 {
+    font-size: 18px;
+    margin-top: 10px;
+    max-width: 600px;
+}
+
 .header h2 a,
 .header h3 a {
     color: inherit !important;
@@ -41,11 +47,15 @@
     color: #dd202c;
 }
 
-.header div:last-child a{
+.header .links div {
+    display: inline-block;
+}
+
+.header .links a {
     font-weight: 600;
-    font-size:1em;
+    font-size: 1em;
     color: #424846; 
-    margin-top:40px;
+    margin-top: 20px;
     text-transform: uppercase;
 }
 .header div:last-child a i {
@@ -341,8 +351,7 @@ h3 {
 
 @media only screen and (max-width: 960px) {
 
-    .header .pull-left,
-    .header .pull-right {
+    .header .links {
         float: none !important;
     }
     
