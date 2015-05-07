@@ -87,6 +87,7 @@ $(document).ready(function() {
             alert("Not valid");
             return;
         } else {
+            $(".js-close-slider").click();
             storage.set([from, to], 'dateArray');
             getBaseData(storage.get('dateArray'));
             getTopExportingCompanies(storage.get('dateArray'));

@@ -330,6 +330,10 @@ table {
     background: #dddddd;
 }
 
+.info-table tr th .glyphicon {
+    margin-left: 10px;
+}
+
 .info-table thead,
 .info-table tbody,
 .info-table tr,
