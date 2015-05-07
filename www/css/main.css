@@ -153,9 +153,12 @@ padding:0 5px;
     position: relative;
     vertical-align: top;
     min-width: 300px;
-    width: 20%;
-    max-width: 500px;
+    width: 25%;
     padding: 0px 10px;
+}
+
+.slider-visible #map-cell {
+    width: 70%;
 }
 
 .slider-close-button {
