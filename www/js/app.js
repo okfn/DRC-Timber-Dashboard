@@ -96,13 +96,13 @@ $(document).ready(function() {
     });
 
     (function(){
-        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 4)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 4)) AS max FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7"', function(data) {
+        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 10)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 10)) AS max FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7"', function(data) {
             var range = data.result.records[0];
             var inputFrom = $('#date-filter-from');
             var inputTo = $('#date-filter-to');
 
-            inputFrom.val(range.min + '-01-01');
-            inputTo.val(range.max + '-12-31');
+            inputFrom.val(range.min);
+            inputTo.val(range.max);
 
             inputFrom.parent().find('span').text(inputFrom.val());
             inputTo.parent().find('span').text(inputTo.val());
@@ -540,7 +540,7 @@ $(document).ready(function() {
                 '<div id="bodyInfoWindowContent">' +
                 '<h5 id="amountTotalTooltip"></h5>' +
                 '<h5>Total (RWE): <span id="countrySelectedAmountInPopup"></span></h5>' +
-                (species.length ? '<h5>Species: <span id="speciesTooltip">' + species.join(', ') + '</span></h5>' : '') +
+                (species.length ? '<h5 class="hidden">Species: <span id="speciesTooltip">' + species.join(', ') + '</span></h5>' : '') +
                 '</div>' +
                 '</div>';
 

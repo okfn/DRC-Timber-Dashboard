@@ -26,10 +26,31 @@
 <div class="row no-side-margins">
 <div class="container">
 <div class="row header">
-    <div class="links pull-right">
-        <div class="margin-10"><a class="inline" href="/contacts.html"><i class="glyphicon glyphicon-envelope"></i> Contact</a></div>
-        <div class="margin-10"><a class="inline" href="/source-info.html"><i class="glyphicon glyphicon-info-sign"></i> Source information</a></div>
-        <div class="margin-10"><a class="inline" href="#"><i class="glyphicon glyphicon-save"></i> Download data</a></div>
+    <div class="pull-right">
+        <div class="links text-right">
+            <div class="margin-10"><a class="inline" href="/contacts.html"><i class="glyphicon glyphicon-envelope"></i> Contact</a></div>
+            <div class="margin-10"><a class="inline" href="/source-info.html"><i class="glyphicon glyphicon-info-sign"></i> Source information</a></div>
+            <div class="margin-10"><a class="inline" href="#"><i class="glyphicon glyphicon-save"></i> Download data</a></div>
+        </div>
+        <div id="date-filter" class="pull-right margin-10">
+            <table cellpadding="0" cellspacing="0" border="0"><tr><td>
+                <strong>Filter by time:</strong>
+                <span>from</span>
+        <span class="date-filter">
+            <label class="btn btn-md btn-danger">
+                <span>loading...</span> <i class="caret"></i>
+                <input type="text" id="date-filter-from">
+            </label>
+        </span>
+                <span>to</span>
+        <span class="date-filter">
+            <label class="btn btn-md btn-danger">
+                <span>loading...</span> <i class="caret"></i>
+                <input type="text" id="date-filter-to">
+            </label>
+        </span>
+            </td></tr></table>
+        </div>
     </div>
     <div>
         <img src="img/logo.png" alt="Global Witness" class="pull-left" style="margin-right: 20px;">
@@ -38,26 +59,6 @@
     </div>
 </div>
 </div>
-
-    <div class="container" id="date-filter">
-    <table cellpadding="0" cellspacing="0" border="0"><tr><td>
-        <strong>Filter by time:</strong>
-        <span>from</span>
-        <span class="date-filter">
-            <label class="btn btn-sm btn-danger">
-                <span>loading...</span> <i class="caret"></i>
-                <input type="text" id="date-filter-from">
-            </label>
-        </span>
-        <span>to</span>
-        <span class="date-filter">
-            <label class="btn btn-sm btn-danger">
-                <span>loading...</span> <i class="caret"></i>
-                <input type="text" id="date-filter-to">
-            </label>
-        </span>
-    </td></tr></table>
-    </div>
 
 <div class="row no-side-margins clearfix map-block">
 <table cellspacing="0" cellpadding="0" border="0">
