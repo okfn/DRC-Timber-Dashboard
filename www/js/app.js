@@ -454,6 +454,7 @@ $(document).ready(function() {
                 '<span class="js-expand text-center slider-desc-shadow"><i class="glyphicon glyphicon-chevron-down"></i></span>' +
                 '</div></div>');
         };
+        $('#slider').parent().scrollTop(0);
     }
 
         $('#slider').on('click', '.js-expand', function(event) {
