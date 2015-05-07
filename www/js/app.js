@@ -41,14 +41,6 @@ $(document).ready(function() {
         data: {}
     }
 
-    storage.set(['2012-1-1', '2014-9-30'], 'dateArray');
-
-    getBaseData(storage.get('dateArray'));
-    getTopExportingCompanies(storage.get('dateArray'));
-    getTopExportingSpecies(storage.get('dateArray'));
-    getTopExportingDestinations(storage.get('dateArray'));
-
-
     $(".filter-type").click(function(event) {
 
         filterShipperList($(this).attr('id'), this);
@@ -88,6 +80,13 @@ $(document).ready(function() {
             }
             fromYear.val(range.min);
             toYear.val(range.max);
+
+            storage.set([range.min + '-01-01', range.max + '-12-31'], 'dateArray');
+
+            getBaseData(storage.get('dateArray'));
+            getTopExportingCompanies(storage.get('dateArray'));
+            getTopExportingSpecies(storage.get('dateArray'));
+            getTopExportingDestinations(storage.get('dateArray'));
         });
     })();
 
