@@ -3,7 +3,15 @@ $(document).ready(function() {
     var formatNumber = function(n) {
         var n = parseFloat('' + n);
         if (isNaN(n) || !isFinite(n)) return '0,00';
-        return n.toFixed(2).replace('.', ',');
+        var n = n.toFixed(2) + '';
+        var x = n.split('.');
+        var x1 = x[0];
+        var x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
     }
 
     forceResizeEvent = function() {
@@ -487,7 +495,7 @@ $(document).ready(function() {
         slider.empty();
         for (var i = 0; i < data.length; i++) {
             slider.append('<div class="slider-item"><div class="weight pull-left text-nowrap">' +
-                data[i].sum + ' tonnes</div><div class="inner-content"><h3>' + data[i].shipper +
+                formatNumber(data[i].sum) + ' tonnes</div><div class="inner-content"><h3>' + data[i].shipper +
                 '</h3><div class="slider-desc">' + markdown.makeHtml(data[i].shipper_description) + '</div>' +
                 '<span class="js-expand text-center slider-desc-shadow"><i class="glyphicon glyphicon-chevron-down"></i></span>' +
                 '</div></div>');
