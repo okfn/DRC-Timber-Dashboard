@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+    var specialCountryMessages = {};
+
+    specialCountryMessages["Namibia".toUpperCase()] = "Walvis Bay, Namibia is a major transit port. It is likely that timber shipped to Namibia is subsequently shipped on to another country.";
+    specialCountryMessages["Republic of Congo".toUpperCase()] = "Pointe Noire, Rep. of Congo is a major transit port. It is likely that timber shipped to Republic of Congo is subsequently shipped on to another country.";
+
     var formatNumber = function(n) {
         var n = parseFloat('' + n);
         if (isNaN(n) || !isFinite(n)) return '0,00';
@@ -534,6 +539,8 @@ $(document).ready(function() {
                 return '<span>' + item + '</span>';
             });
 
+            var additionalMessage = specialCountryMessages[country.toUpperCase()];
+
             var contentString =
                 '<div id="content">' +
                 '<div id="siteNotice">' +
@@ -543,6 +550,7 @@ $(document).ready(function() {
                 '<h5 id="amountTotalTooltip"></h5>' +
                 '<h5>Total (RWE): <span id="countrySelectedAmountInPopup"></span></h5>' +
                 (species.length ? '<h5 class="hidden">Species: <span id="speciesTooltip">' + species.join(', ') + '</span></h5>' : '') +
+                (additionalMessage ? '<h5>' + additionalMessage + '</h5>' : '') +
                 '</div>' +
                 '</div>';
 
