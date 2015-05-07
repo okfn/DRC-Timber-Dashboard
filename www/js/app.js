@@ -6,6 +6,23 @@ $(document).ready(function() {
         return n.toFixed(2).replace('.', ',');
     }
 
+    forceResizeEvent = function() {
+        var resizer = function() {
+            if (window.fireEvent) {
+                window.fireEvent('resize');
+            } else
+            if (window.dispatchEvent && window.Event) {
+                window.dispatchEvent(new Event('resize'));
+            } else
+            if (window.resize && ($.type(window.resize) == 'function')) {
+                window.resize();
+            } else {
+                $(window).resize();
+            }
+        }
+        setTimeout(resizer, 10);
+    }
+
     var storage = {
         set: function(data, varName) {
             storage.data[varName] = data;
@@ -338,7 +355,7 @@ $(document).ready(function() {
 
         var mapOptions = {
             // Shift map down because most markers are on the top of map
-            center: new google.maps.LatLng(-3.693714 + 15, 23.991271),
+            center: new google.maps.LatLng(-3.693714 + 30, 23.991271),
             zoom: 3,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             styles: window.mapStyles,
@@ -378,12 +395,19 @@ $(document).ready(function() {
 
         // Set infowindows
         function setInfoWindows(country) {
+            $(".map-block").addClass('slider-visible');
+            forceResizeEvent();
+
             var routeClicked = country;
             window.selectedCountry = country;
             _.each(storage.get('markers'), function(item) {
                 if (item.title == routeClicked) {
                     setContent(routeClicked);
-                    infowindow.open(map, item);
+                    (function(map, item) {
+                        setTimeout(function () {
+                            infowindow.open(map, item);
+                        }, 100);
+                    })(map, item);
                 };
             });
 
@@ -408,7 +432,6 @@ $(document).ready(function() {
 
 
         function generateShipperList(country) {
-            $(".shippers-slider").fadeIn();
             var dateArray = storage.get('dateArray');
             var URL = 'http://datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper","destination_country","shipper_type",sum("weight_rwe"),"shipper_description" FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "shipper","destination_country","shipper_type","shipper_description" ORDER by sum("weight_rwe") DESC'
             $.get(URL, function(data) {
@@ -416,7 +439,7 @@ $(document).ready(function() {
                 storage.set(data, 'dataShippersCountry');
                 storage.set(data, 'dataShippersCountry_bak');
 
-                $("#countrySelected").text(data[0].destination_country);
+                $("#countrySelected span").text(data[0].destination_country);
                 initSlider();
             });
 
@@ -434,11 +457,6 @@ $(document).ready(function() {
 
 
         }
-
-
-        $("#prevSlide").click(prevSlide);
-        $("#nextSlide").click(nextSlide);
-
 
    $('input[type=checkbox]').change(function() {
         var filterArray = []
@@ -468,13 +486,18 @@ $(document).ready(function() {
         var data = storage.get("dataShippersCountry");
         slider.empty();
         for (var i = 0; i < data.length; i++) {
-            slider.append('<div class="col-xs-4 col-each"><div class="weight pull-left text-nowrap">' +
+            slider.append('<div class="slider-item"><div class="weight pull-left text-nowrap">' +
                 data[i].sum + ' tonnes</div><div class="inner-content"><h3>' + data[i].shipper +
-                '</h3><div class="slider-desc">' + markdown.makeHtml(data[i].shipper_description) +
-                ' </div></div></div>');
+                '</h3><div class="slider-desc">' + markdown.makeHtml(data[i].shipper_description) + '</div>' +
+                '<span class="js-expand text-center slider-desc-shadow"><i class="glyphicon glyphicon-chevron-down"></i></span>' +
+                '</div></div>');
         };
-        updateSliderButtons();
     }
+
+        $('#slider').on('click', '.js-expand', function(event) {
+            $(this).parent().find('.slider-desc').toggleClass('expanded');
+            $(this).find('.glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+        });
 
 
         
@@ -500,46 +523,6 @@ $(document).ready(function() {
         }
         initSlider();
     }
-
-    
-        function updateSliderButtons() {
-            var slider = $("#slider");
-            if (slider.find('> div:visible').length > 3) {
-                $("#nextSlide").show();
-            } else {
-                $("#nextSlide").hide();
-            }
-            if (slider.find('> div:hidden').length > 0) {
-                $("#prevSlide").show();
-            } else {
-                $("#prevSlide").hide();
-            }
-        }
-
-        function nextSlide() {
-            var slider = $("#slider");
-            var items = slider.find('> div:visible');
-            if (items.length > 3) {
-                // Hide first 3 visible items
-                items.slice(0, 3).hide();
-            }
-            updateSliderButtons();
-        }
-
-
-
-        function prevSlide() {
-            var slider = $("#slider");
-            var items = slider.find('> div:hidden');
-            if (items.length > 0) {
-                // Show last 3 hidden items
-                items.slice(-3).show();
-            }
-            updateSliderButtons();
-        }
-
-
-
 
         //
         //
@@ -571,7 +554,7 @@ $(document).ready(function() {
             species = [];
 
             _.each(uniqueSpecies, function(item, key) {
-                if (item.specie === 'Unknown') {
+                if (item.specie === 'Unspecified') {
                     return;
                 };
                 species.push(item.specie);
@@ -620,6 +603,19 @@ $(document).ready(function() {
         }
 
 
+        $('.js-close-slider').on('click', function(event){
+            $(".map-block").removeClass('slider-visible');
+            var lastItem = storage.get("lastMarker");
+
+            if (lastItem) {
+                lastItem.setIcon('img/yellow/' + storage.get(lastItem.title) + '.png');
+            };
+            storage.set(null, "lastMarker");
+            infowindow.close();
+            forceResizeEvent();
+        });
+
+
         //
         //
         //
@@ -657,6 +653,7 @@ $(document).ready(function() {
             });
 
             markers.push(marker);
+            item.$$marker = marker;
 
             storage.set(markers, 'markers');
 
@@ -707,10 +704,27 @@ $(document).ready(function() {
 
             route.setMap(map);
 
-
             google.maps.event.addListener(route, 'click', function() {
                 document.title = "DRC Timber Dashboard - " + this.country + "route";
                 window.currentCity = this.country;
+
+                var lastItem = storage.get("lastMarker");
+                if (lastItem) {
+                    lastItem.setIcon('img/yellow/' + storage.get(lastItem.title) + '.png');
+                };
+                var marker = null;
+                _.find(dataDestirnations, function($$item) {
+                    if ($$item.$$marker && ($$item.country == item.country)) {
+                        marker = $$item.$$marker;
+                        marker.setIcon('img/red/' + storage.get(marker.title) + '.png');
+                        return true;
+                    }
+                });
+                storage.set(marker, "lastMarker");
+
+                //storage.set(this, "lastMarker");
+                //this.setIcon('img/red/' + storage.get(this.title) + '.png');
+
                 setInfoWindows(this.country);
             });
         });

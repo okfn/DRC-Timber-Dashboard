@@ -87,40 +87,46 @@
             </div>
                  
                 </div>
-<div class="row no-side-margins">
-                <div class="map_container">
-                    <div id="map_canvas"></div>
+<div class="row no-side-margins clearfix map-block">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td id="map-cell">
+    <div class="map_container">
+        <div id="map_canvas"></div>
+    </div>
+</td>
+<td id="slider-cell">
+    <div class="js-close-slider slider-close-button text-nowrap" title="Hide this slider">
+        <span>Close</span> <i class="glyphicon glyphicon-remove"></i></span>
+    </div>
+    <div class="shippers-slider">
+        <div class="slider">
+            <div class="slider-header">
+                <table class="country-selected-amount-table"><tbody><tr>
+                    <td><div class="weight pull-left text-nowrap" id="countrySelectedAmount">Select route</div></td>
+                    <td><div class="quantity hidden pull-right text-center text-nowrap"><i class="glyphicon glyphicon-tree-conifer"></i> <span id="speciesNumber">0</span> species</div></td>
+                </tr></tbody></table>
+
+                <!--<div class="col-lg-4 hide-sm"></div>-->
+
+                <div class="country-selected-amount-block inner-content clearfix">
+                    <img style="width:100%" src="img/truck2.jpg">
+                    <h3 id="countrySelected">Companies that export to <span></span></h3>
+                    <div class="hidden pull-left checkbox-wrapper">
+                        <label><input class="typeFilter" id="artisinal" type="checkbox"><i></i> Arisinal</label>
+                    </div>
+                    <div class="hidden pull-left checkbox-wrapper">
+                        <label><input class="typeFilter" id="concession" type="checkbox"><i></i> Concession</label>
+                    </div>
                 </div>
-</div>
-            
-<div class="col-lg-10 col-centered shippers-slider">
-<div class="col-lg-1 button-slider"><button id="prevSlide" class="glyphicon glyphicon-chevron-left"></button></div>
-<div class="col-lg-10 slider">
-<div class="col-lg-3">
-          <div class="row col-each" >
-              <table class="country-selected-amount-table"><tbody><tr>
-                  <td><div class="weight pull-left text-nowrap" id="countrySelectedAmount">Select route</div></td>
-                  <td><div class="quantity pull-right text-center text-nowrap"><i class="glyphicon glyphicon-tree-conifer"></i> <span id="speciesNumber">0</span> species</div></td>
-              </tr></tbody></table>
+            </div>
 
-          <!--<div class="col-lg-4 hide-sm"></div>-->
-
-              <div class="country-selected-amount-block inner-content clearfix">
-              <img style="width:100%" src="img/truck.png">
-                  <h3 id="countrySelected">Select route</h3>
-                  <div class="hidden pull-left checkbox-wrapper">
-                      <label><input class="typeFilter" id="artisinal" type="checkbox"><i></i> Arisinal</label>
-                  </div>
-                  <div class="hidden pull-left checkbox-wrapper">
-                      <label><input class="typeFilter" id="concession" type="checkbox"><i></i> Concession</label>
-                  </div>
-              </div>
-          </div>
-          </div>
-
-<div class="col-lg-9 slider-items" id="slider"></div>
+            <div class="slider-items" id="slider"></div>
         </div>
-        <div class="col-lg-1 button-slider"><button id="nextSlide" class="glyphicon glyphicon-chevron-right"></button></div>
+    </div>
+</td>
+</tr>
+</table>
 </div>
 
         <div class="container bottom-block">
