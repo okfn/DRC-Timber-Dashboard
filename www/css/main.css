@@ -74,7 +74,7 @@
     max-width: 100%;
     z-index: 1;
     /* map height */
-    height: 520px;
+    height: 480px;
     display: block;
 }
 #map_canvas {
@@ -136,7 +136,7 @@ padding:0 5px;
     display: block;
     width: 100%;
     /* Same as map height */
-    height: 520px;
+    height: 480px;
 }
 
 #map-cell {
@@ -182,7 +182,7 @@ padding:0 5px;
     z-index: 2;
     height: 100%;
     /* Same as map height */
-    max-height: 520px;
+    max-height: 480px;
     overflow-y: scroll;
 }
 

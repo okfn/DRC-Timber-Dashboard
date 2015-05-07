@@ -155,7 +155,8 @@ $(document).ready(function() {
             $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingCompanies');
             _.each(data.result.records, function(item) {
-                $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
+                $("#topExportingCompanies tbody").append('<tr><td>' + item.shipper + ' </td><td class="text-right" data-sort-value="' +
+                    item.sum + '"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
             });
 
         });
@@ -181,7 +182,8 @@ $(document).ready(function() {
             storage.set(data.result.records, 'topExportingDestinations');
 
             _.each(data.result.records, function(item) {
-                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
+                $("#topExportingDestinations tbody").append('<tr><td>' + item.destination_country + ' </td><td class="text-right" data-sort-value="' +
+                    item.sum + '"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
             });
         });
     }
@@ -208,7 +210,8 @@ $(document).ready(function() {
             $.fn.matchHeight._update();
             storage.set(data.result.records, 'topExportingSpecies');
             _.each(data.result.records, function(item) {
-                $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
+                $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td><td class="text-right" data-sort-value="' +
+                    item.sum + '">' + formatNumber(item.sum) + ' tonnes</td></tr>');
             });
 
         });
@@ -567,7 +570,8 @@ $(document).ready(function() {
                 $("#speciesExported tbody").empty();
                 storage.set(data.result.records, 'topExportingSpecies');
                 _.each(data.result.records, function(item) {
-                    $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
+                    $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td><td class="text-right" data-sort-value="' +
+                        item.sum + '">' + formatNumber(item.sum) + ' tonnes</td></tr>');
                 });
             });
 
