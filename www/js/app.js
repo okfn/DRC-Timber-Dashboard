@@ -76,10 +76,23 @@ $(document).ready(function() {
     //
     //
 
+    (function(){
+        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 4)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 4)) AS max FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7"', function(data) {
+            var range = data.result.records[0];
+            var fromYear = $("#filterFromYear").empty();
+            var toYear = $("#filterToYear").empty();
+            for (var i = range.min; i <= range.max; i++) {
+                var option = $('<option>').attr('value', i).text(i);
+                fromYear.append(option.clone());
+                toYear.append(option.clone());
+            }
+            fromYear.val(range.min);
+            toYear.val(range.max);
+        });
+    })();
+
 
     function getTimePeriod(fromQuarter, toQuarter, fromYear, toYear) {
-
-
 
         switch (parseInt(fromQuarter)) {
             case 1:
@@ -96,8 +109,6 @@ $(document).ready(function() {
                 break;
 
         }
-
-
 
         var fromDate = fromYear + dayFrom
 
@@ -169,7 +180,7 @@ $(document).ready(function() {
 
 
     function getBaseData(dateArray) {
-        $.get('//datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country","lat","lon",sum("weight_rwe"),"shipper_description","shipper_type","species" FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\' GROUP BY "destination_country","lat","lon","shipper_description","shipper_type","species"', function(data) {
+        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country","lat","lon",sum("weight_rwe"),"shipper_description","shipper_type","species" FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + dateArray[0] + '\' AND \'' + dateArray[1] + '\' GROUP BY "destination_country","lat","lon","shipper_description","shipper_type","species"', function(data) {
             // Data raw
             storage.set(data.result.records, 'baseData');
             initData(data.result.records);
@@ -596,7 +607,7 @@ $(document).ready(function() {
             $("#speciesTableHeading").html('Species exported to <span>' + country + '</span>');
             $.fn.matchHeight._update();
 
-            var URL = encodeURI('//datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_rwe") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + storage.get('dateArray')[0] + '\' AND \'' + storage.get('dateArray')[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "species" ORDER BY sum("weight_rwe") DESC');
+            var URL = encodeURI('http://datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_rwe") FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7" WHERE "departure_date" BETWEEN \'' + storage.get('dateArray')[0] + '\' AND \'' + storage.get('dateArray')[1] + '\'  AND "destination_country" = \'' + country + '\' GROUP BY "species" ORDER BY sum("weight_rwe") DESC');
             $.get(URL, function(data) {
                 $("#speciesExported .js-icon")
                     .removeClass('glyphicon-triangle-top')
@@ -604,7 +615,7 @@ $(document).ready(function() {
                 $("#speciesExported tbody").empty();
                 storage.set(data.result.records, 'topExportingSpecies');
                 _.each(data.result.records, function(item) {
-                    $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td> <td> ' + item.sum + ' tonnes</td></tr>');
+                    $("#speciesExported tbody").append('<tr><td>' + item.species + ' </td><td class="text-right"> ' + formatNumber(item.sum) + ' tonnes</td></tr>');
                 });
             });
 
@@ -729,9 +740,6 @@ $(document).ready(function() {
                     }
                 });
                 storage.set(marker, "lastMarker");
-
-                //storage.set(this, "lastMarker");
-                //this.setIcon('img/red/' + storage.get(this.title) + '.png');
 
                 setInfoWindows(this.country);
             });

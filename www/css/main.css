@@ -122,6 +122,7 @@ padding:0 5px;
 
 #map-cell {
     width: 100%;
+    vertical-align: top;
 }
 
 #slider-cell {
@@ -130,6 +131,8 @@ padding:0 5px;
 
 .slider-visible #slider-cell {
     display: table-cell;
+    position: relative;
+    vertical-align: top;
     min-width: 300px;
     width: 20%;
     max-width: 500px;
