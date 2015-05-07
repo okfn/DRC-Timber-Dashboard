@@ -68,95 +68,26 @@ $(document).ready(function() {
     //
     //
 
-    (function(){
-        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 4)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 4)) AS max FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7"', function(data) {
-            var range = data.result.records[0];
-            var fromYear = $("#filterFromYear").empty();
-            var toYear = $("#filterToYear").empty();
-            for (var i = range.min; i <= range.max; i++) {
-                var option = $('<option>').attr('value', i).text(i);
-                fromYear.append(option.clone());
-                toYear.append(option.clone());
-            }
-            fromYear.val(range.min);
-            toYear.val(range.max);
-
-            storage.set([range.min + '-01-01', range.max + '-12-31'], 'dateArray');
-
-            getBaseData(storage.get('dateArray'));
-            getTopExportingCompanies(storage.get('dateArray'));
-            getTopExportingSpecies(storage.get('dateArray'));
-            getTopExportingDestinations(storage.get('dateArray'));
-        });
-    })();
-
-
-    function getTimePeriod(fromQuarter, toQuarter, fromYear, toYear) {
-
-        switch (parseInt(fromQuarter)) {
-            case 1:
-                var dayFrom = '-1-1';
-                break;
-            case 2:
-                var dayFrom = '-4-1';
-                break;
-            case 3:
-                var dayFrom = '-7-1';
-                break;
-            case 4:
-                var dayFrom = '-10-1';
-                break;
-
+    $('.date-filter input').pickmeup({
+        position: 'bottom',
+        format: 'Y-m-d',
+        hide_on_select: true,
+        change: function() {
+            $(this).change();
         }
+    });
+    $('.date-filter input').on('change', function(event){
+        var input = $(this);
+        input.parent().find('span').text(input.val());
 
-        var fromDate = fromYear + dayFrom
+        var from = $('#date-filter-from').val();
+        var to = $('#date-filter-to').val();
 
-
-        switch (parseInt(toQuarter)) {
-            case 1:
-                var dayTo = '-3-31';
-                break;
-            case 2:
-                var dayTo = '-6-30';
-                break;
-            case 3:
-                var dayTo = '-9-30';
-                break;
-            case 4:
-                var dayTo = '-12-31';
-                break;
-
-        }
-
-
-        var toDate = toYear + dayTo;
-
-        storage.set([fromDate, toDate], 'dateArray');
-        return [fromDate, toDate];
-    }
-
-
-    //
-    //
-    //
-    // Filter select event
-    //
-    //
-    //
-
-
-    $("select").change(function() {
-
-        var fromQuarter = parseInt($("#filterfromQuarter").val());
-        var toQuarter = parseInt($("#filtertoQuarter").val());
-        var fromYear = parseInt($("#filterFromYear").val());
-        var toYear = parseInt($("#filterToYear").val());
-
-        if ((fromYear > toYear) || ((fromYear == toYear) && (fromQuarter >= toQuarter))) {
+        if (from >= to) {
             alert("Not valid");
             return;
         } else {
-            storage.set(getTimePeriod(fromQuarter, toQuarter, fromYear, toYear), 'dateArray');
+            storage.set([from, to], 'dateArray');
             getBaseData(storage.get('dateArray'));
             getTopExportingCompanies(storage.get('dateArray'));
             getTopExportingSpecies(storage.get('dateArray'));
@@ -164,10 +95,22 @@ $(document).ready(function() {
         }
     });
 
+    (function(){
+        $.get('http://datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 4)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 4)) AS max FROM "7c936579-7940-42a3-ae79-a0f498cb7ea7"', function(data) {
+            var range = data.result.records[0];
+            var inputFrom = $('#date-filter-from');
+            var inputTo = $('#date-filter-to');
 
+            inputFrom.val(range.min + '-01-01');
+            inputTo.val(range.max + '-12-31');
 
- 
+            inputFrom.parent().find('span').text(inputFrom.val());
+            inputTo.parent().find('span').text(inputTo.val());
 
+            // Force data update
+            inputTo.change();
+        });
+    })();
 
     //
     //
