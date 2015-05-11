@@ -438,7 +438,7 @@ $(document).ready(function() {
             species = [];
 
             _.each(uniqueSpecies, function(item, key) {
-                if (item.specie === 'Unspecified') {
+                if (item.specie.toUpperCase() === 'Unspecified'.toUpperCase()) {
                     return;
                 };
                 species.push(item.specie);
@@ -515,7 +515,7 @@ $(document).ready(function() {
         _.each(dataDestirnations, function(item) {
             var markerSize = Math.round(Math.pow(item.weight / maxWeight, 1/Math.PI) * 4) + 1;
             storage.set(markerSize, item.country);
-            if (item.country == "Democratic republic of Congo") {
+            if (item.country.toUpperCase() == "Democratic republic of Congo".toUpperCase()) {
                 icon = {
                     path: 'M 0, 0 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0',
                     fillColor: item.color,
@@ -539,6 +539,7 @@ $(document).ready(function() {
             storage.set(markers, 'markers');
 
             google.maps.event.addListener(marker, 'click', function() {
+                if (this.title.toUpperCase() == 'Democratic Republic of Congo'.toUpperCase()) return;
                 var lastItem = storage.get("lastMarker");
 
                 if (lastItem) {
@@ -587,7 +588,7 @@ $(document).ready(function() {
                 };
                 var marker = null;
                 _.find(dataDestirnations, function($$item) {
-                    if ($$item.$$marker && ($$item.country == item.country)) {
+                    if ($$item.$$marker && ($$item.country.toUpperCase() == item.country.toUpperCase())) {
                         marker = $$item.$$marker;
                         marker.setIcon('img/red/' + storage.get(marker.title) + '.png');
                         return true;
