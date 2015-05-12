@@ -3,7 +3,7 @@ $(document).ready(function() {
     // Custom messages to be added to info window. Country name should be in English and upper-cased
     var specialCountryMessages = {};
 
-    specialCountryMessages["Namibia".toUpperCase()] = "Walvis Bay, Namibia is a major transit port. It is likely that timber shipped to Namibia is subsequently shipped on to another country.";
+    specialCountryMessages["Namibia".toUpperCase()] = "Walvis Bay, Namibia, appears to function as a transit port for DRC timber. It is likely that timber shipped to Namibia is subsequently shipped on to another country.";
     specialCountryMessages["Republic of Congo".toUpperCase()] = "Pointe Noire, Rep. of Congo is a major transit port. It is likely that timber shipped to Republic of Congo is subsequently shipped on to another country.";
 
     var API_TABLE_NAME = '7c936579-7940-42a3-ae79-a0f498cb7ea7';
@@ -12,7 +12,7 @@ $(document).ready(function() {
     // separator, point as decimal separator and keep only 2 decimal digits: 0,000,000.00
     var formatNumber = function(n) {
         var n = parseFloat('' + n);
-        if (isNaN(n) || !isFinite(n)) return '0,00';
+        if (isNaN(n) || !isFinite(n)) n = 0.0;
         var n = n.toFixed(2) + '';
         var x = n.split('.');
         var x1 = x[0];
