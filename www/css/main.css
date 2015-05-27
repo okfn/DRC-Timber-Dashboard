@@ -22,9 +22,10 @@
     padding-bottom: 15px
 }
 .header h2{
-     font-family: 'Titillium Web', sans-serif;
-     font-weight: 600;
-    color: #dd202c; 
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+    color: #dd202c;
+    margin-left: 125px;
 }
 .header h2 span{
     font-weight: 600;
@@ -35,6 +36,23 @@
     font-size: 18px;
     margin-top: 10px;
     max-width: 600px;
+    margin-left: 125px;
+}
+.header h3 sup {
+    position: relative;
+    font-size: 60%;
+    top: -0.4em;
+}
+
+.header h3 small {
+    display: inline-block;
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.header h3 small a {
+    text-decoration: underline !important;
 }
 
 .header h2 a,

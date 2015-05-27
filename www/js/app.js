@@ -221,6 +221,13 @@ $(document).ready(function() {
         // Route and markers quantity loop
         // Max. 30 routes
         var n = DRCData.length > 31 ? 31 : DRCData.length;
+        // Push first marker (!!!)
+        if (DRCData.length > 0) {
+            // Markers
+            dataLocations.push(generateLocation(DRCData[0]));
+            // Routes
+            dataDestirnations.push(generateDestirnation(DRCData[0]));
+        }
         for (var i = 1; i < n; i++) {
             if (DRCData[i].destination_country != DRCData[i - 1].destination_country) {
                 // Markers
@@ -252,7 +259,7 @@ $(document).ready(function() {
             dataDestirnationObj.weight = data.sum;
             dataDestirnationObj.color = '#dd202c';
         }
-        return dataDestirnationObj
+        return dataDestirnationObj;
     }
 
     // Generates data for routes
