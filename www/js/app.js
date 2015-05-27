@@ -76,10 +76,8 @@ $(document).ready(function() {
     });
 
     // Initialize Download Data link
-    $.get('http://datahub.io/api/action/dataset_show?id=dashboard-data-draft', function(data){
-        var url = data.result.resources[0].url;
-        $('#download-data-button').attr('href', url);
-    });
+    $('#download-data-button').attr('href',
+        'http://datahub.io/dataset/drc-timber-tracker-data/resource/' + API_TABLE_NAME);
 
     //
     // Time filters
