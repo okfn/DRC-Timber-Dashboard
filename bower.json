@@ -1,8 +1,0 @@
-{
-    "name": "OpenKnowledgeTimberRouteVisualization",
-    "version": "0.0.0",
-    "dependencies": {
-        "bootstrap": "~3.2"
-    }
-}
-
