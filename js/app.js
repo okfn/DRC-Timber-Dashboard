@@ -136,7 +136,7 @@ $(document).ready(function() {
 
     // Get base map data
     function getBaseData(dateArray) {
-        $.get('https://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country","lat","lon",sum("weight_rwe"),"shipper_description","shipper_type","species" FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\' GROUP BY "destination_country","lat","lon","shipper_description","shipper_type","species"', function(data) {
+        $.get('https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country","lat","lon",sum("weight_rwe"),"shipper_description","shipper_type","species" FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\' GROUP BY "destination_country","lat","lon","shipper_description","shipper_type","species"', function(data) {
             // Data raw
             storage.set(data.result.records, 'baseData');
             initData(data.result.records);
