@@ -77,7 +77,7 @@ $(document).ready(function() {
 
     // Initialize Download Data link
     $('#download-data-button').attr('href',
-        'https://datahub.io/dataset/drc-timber-tracker-data/resource/' + API_TABLE_NAME);
+        'https://old.datahub.io/dataset/drc-timber-tracker-data/resource/' + API_TABLE_NAME);
 
     //
     // Time filters
@@ -114,7 +114,7 @@ $(document).ready(function() {
     });
     // Initialize filter with actual min and max date from database
     (function(){
-        $.get('https://datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 10)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 10)) AS max FROM "' + API_TABLE_NAME + '"', function(data) {
+        $.get('https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT MIN(SUBSTRING(departure_date FROM 1 FOR 10)) AS min, MAX(SUBSTRING(departure_date FROM 1 FOR 10)) AS max FROM "' + API_TABLE_NAME + '"', function(data) {
             var range = data.result.records[0];
             var inputFrom = $('#date-filter-from');
             var inputTo = $('#date-filter-to');
