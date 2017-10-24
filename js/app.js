@@ -145,7 +145,7 @@ $(document).ready(function() {
 
     // getTopExportingCompanies
     function getTopExportingCompanies(dateArray) {
-        $.get('https://datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\' GROUP BY "shipper" ORDER BY sum("weight_rwe") DESC', function(data) {
+        $.get('https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\' GROUP BY "shipper" ORDER BY sum("weight_rwe") DESC', function(data) {
             $("#topExportingCompanies .js-icon")
                 .removeClass('glyphicon-triangle-top')
                 .removeClass('glyphicon-triangle-bottom');
@@ -163,7 +163,7 @@ $(document).ready(function() {
 
     // getTopExportingDestinations
     function getTopExportingDestinations(dateArray) {
-        $.get('https://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\' GROUP BY "destination_country" ORDER BY sum("weight_rwe") DESC', function(data) {
+        $.get('https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\' GROUP BY "destination_country" ORDER BY sum("weight_rwe") DESC', function(data) {
             $("#topExportingDestinations .js-icon")
                 .removeClass('glyphicon-triangle-top')
                 .removeClass('glyphicon-triangle-bottom');
@@ -183,7 +183,7 @@ $(document).ready(function() {
     function getTopExportingSpecies(dateArray) {
         $("#speciesTableHeading").html('Species exported');
         $.fn.matchHeight._update();
-        $.get('https://datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  GROUP BY "species" ORDER BY sum("weight_rwe") DESC', function(data) {
+        $.get('https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  GROUP BY "species" ORDER BY sum("weight_rwe") DESC', function(data) {
             $("#speciesExported .js-icon")
                 .removeClass('glyphicon-triangle-top')
                 .removeClass('glyphicon-triangle-bottom');
@@ -400,7 +400,7 @@ $(document).ready(function() {
 
         function generateShipperList(country) {
             var dateArray = storage.get('dateArray');
-            var URL = 'https://datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper","destination_country","shipper_type",sum("weight_rwe"),"shipper_description" FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "shipper","destination_country","shipper_type","shipper_description" ORDER by sum("weight_rwe") DESC'
+            var URL = 'https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "shipper","destination_country","shipper_type",sum("weight_rwe"),"shipper_description" FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "shipper","destination_country","shipper_type","shipper_description" ORDER by sum("weight_rwe") DESC'
             $.get(URL, function(data) {
                 data = data.result.records;
                 storage.set(data, 'dataShippersCountry');
@@ -410,12 +410,12 @@ $(document).ready(function() {
                 initSlider();
             });
 
-            var URL = 'https://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
+            var URL = 'https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
                 $("#countrySelectedAmount").text(formatNumber(data.result.records[0].sum) + " tonnes");
                 $("#countrySelectedAmountInPopup").text(formatNumber(data.result.records[0].sum) + " tonnes");
             });
-            var URL = 'https://datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",count(DISTINCT "species") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
+            var URL = 'https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "destination_country",count(DISTINCT "species") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + dateArray[0] + ' 00:00:00\' AND \'' + dateArray[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "destination_country"'
             $.get(URL, function(data) {
                 $("#speciesNumber").text(data.result.records[0].count);
             });
@@ -480,7 +480,7 @@ $(document).ready(function() {
             $("#speciesTableHeading").html('Species exported to <span>' + country + '</span>');
             $.fn.matchHeight._update();
 
-            var URL = encodeURI('https://datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + storage.get('dateArray')[0] + ' 00:00:00\' AND \'' + storage.get('dateArray')[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "species" ORDER BY sum("weight_rwe") DESC');
+            var URL = encodeURI('https://old.datahub.io/api/action/datastore_search_sql?sql=SELECT "species",sum("weight_rwe") FROM "' + API_TABLE_NAME + '" WHERE "departure_date" BETWEEN \'' + storage.get('dateArray')[0] + ' 00:00:00\' AND \'' + storage.get('dateArray')[1] + ' 23:59:59\'  AND "destination_country" = \'' + country + '\' GROUP BY "species" ORDER BY sum("weight_rwe") DESC');
             $.get(URL, function(data) {
                 $("#speciesExported .js-icon")
                     .removeClass('glyphicon-triangle-top')
